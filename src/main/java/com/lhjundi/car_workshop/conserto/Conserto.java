@@ -25,12 +25,13 @@ public class Conserto {
     private Mecanico mecanico;
     @Embedded
     private Veiculo veiculo;
+    private Boolean ativo;
 
     public Conserto(ConsertoDTO dto){
         this.entrada = dto.entrada();
         this.saida = dto.saida();
         this.mecanico = new Mecanico(dto.mecanico());
         this.veiculo = new Veiculo(dto.veiculo());
-
+        this.ativo = true;
     }
 }
