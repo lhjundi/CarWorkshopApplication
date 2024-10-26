@@ -1,9 +1,6 @@
 package com.lhjundi.car_workshop.controller;
 
-import com.lhjundi.car_workshop.conserto.AtualizacaoConsertoDTO;
-import com.lhjundi.car_workshop.conserto.Conserto;
-import com.lhjundi.car_workshop.conserto.ConsertoDTO;
-import com.lhjundi.car_workshop.conserto.ListagemConsertoDTO;
+import com.lhjundi.car_workshop.conserto.*;
 import com.lhjundi.car_workshop.repository.ConsertoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -12,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,46 +23,53 @@ public class ConsertoController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid ConsertoDTO dados){
-        //System.out.println(dados);
-        repository.save(new Conserto(dados));
+    public ResponseEntity cadastrar(@RequestBody @Valid
+                                    ConsertoDTO dados,
+                                    UriComponentsBuilder uriComponentsBuilder) {
+        var conserto = new Conserto(dados);
+        repository.save(conserto);
+        var uri = uriComponentsBuilder.path("/consertos/{id}").buildAndExpand(conserto.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DetalhamentoConsertoDTO(conserto));
     }
 
     @GetMapping
-    public Page<Conserto> listar(Pageable paginacao){
-        return repository.findAll(paginacao);
+    public ResponseEntity listar(Pageable paginacao){
+        Page<Conserto> page = repository.findAll(paginacao);
+        return ResponseEntity.ok(page);
     }
 
     @GetMapping("relatorios")
-    public List<ListagemConsertoDTO> relatorioConsertos(){
-        return repository.findAllByAtivoTrue()
+    public ResponseEntity relatorioConsertos(){
+        List<ListagemConsertoDTO> list = repository.findAllByAtivoTrue()
                 .stream()
                 .map(ListagemConsertoDTO::new)
                 .toList();
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Conserto> getConsertoById(@PathVariable Long id){
+    public ResponseEntity getConsertoById(@PathVariable Long id){
         Optional<Conserto> consertoOptional = repository.findById(id);
         if (consertoOptional.isPresent()){
             Conserto conserto = consertoOptional.get();
-            return ResponseEntity.ok(conserto);
+            return ResponseEntity.ok(new DetalhamentoConsertoDTO(conserto));
         }
         return ResponseEntity.notFound().build();
     }
 
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid AtualizacaoConsertoDTO dto){
+    public ResponseEntity atualizar(@RequestBody @Valid AtualizacaoConsertoDTO dto){
         Conserto conserto = repository.getReferenceById(dto.id());
         conserto.atualizarInformacoes(dto);
+        return ResponseEntity.ok(new DetalhamentoConsertoDTO(conserto));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void excluir(@PathVariable Long id) {
-        Conserto conserto = repository.getReferenceById(id);
-        conserto.excluir();
+    public ResponseEntity excluir(@PathVariable Long id) {
+        repository.getReferenceById(id).excluir();
+        return ResponseEntity.noContent().build();
     }
 
 }
