@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 @Table(name = "consertos")
 @Entity(name = "Conserto")
 @Getter
@@ -33,5 +35,14 @@ public class Conserto {
         this.mecanico = new Mecanico(dto.mecanico());
         this.veiculo = new Veiculo(dto.veiculo());
         this.ativo = true;
+    }
+
+    public void atualizarInformacoes(AtualizacaoConsertoDTO dto) {
+        Optional<String> saida = Optional.ofNullable(dto.saida());
+        Optional<String> nome = Optional.ofNullable(dto.nome());
+        Optional<String> experiencia = Optional.ofNullable(dto.experiencia());
+        saida.ifPresent(s -> this.saida = s);
+        nome.ifPresent(s -> this.mecanico.setNome(s));
+        experiencia.ifPresent(s -> this.mecanico.setExperiencia(s));
     }
 }

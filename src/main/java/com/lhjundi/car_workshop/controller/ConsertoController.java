@@ -1,5 +1,6 @@
 package com.lhjundi.car_workshop.controller;
 
+import com.lhjundi.car_workshop.conserto.AtualizacaoConsertoDTO;
 import com.lhjundi.car_workshop.conserto.Conserto;
 import com.lhjundi.car_workshop.conserto.ConsertoDTO;
 import com.lhjundi.car_workshop.conserto.ListagemConsertoDTO;
@@ -55,6 +56,13 @@ public class ConsertoController {
             return ResponseEntity.ok(conserto);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid AtualizacaoConsertoDTO dto){
+        Conserto conserto = repository.getReferenceById(dto.id());
+        conserto.atualizarInformacoes(dto);
     }
 
 }
