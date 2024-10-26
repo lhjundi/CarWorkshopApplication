@@ -1,6 +1,7 @@
 package com.lhjundi.car_workshop.conserto;
 
 public record ListagemConsertoDTO(
+        Long id,
         String entrada,
         String saida,
         String nome,
@@ -9,6 +10,7 @@ public record ListagemConsertoDTO(
 ){
     public ListagemConsertoDTO(Conserto conserto){
         this(
+                conserto.getId(),
                 conserto.getEntrada(),
                 conserto.getSaida(),
                 conserto.getMecanico().getNome(),

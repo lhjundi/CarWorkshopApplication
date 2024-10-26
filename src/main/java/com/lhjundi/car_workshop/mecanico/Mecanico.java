@@ -17,4 +17,12 @@ public class Mecanico {
         this.nome = dto.nome();
         this.experiencia = dto.experiencia();
     }
+
+    public void setNome(String nome) {
+        if (nome != null) this.nome = nome;
+    }
+
+    public void setExperiencia(String experiencia) {
+        if (experiencia != null) this.experiencia = experiencia;
+    }
 }
