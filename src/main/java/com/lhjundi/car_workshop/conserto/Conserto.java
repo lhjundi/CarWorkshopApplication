@@ -45,4 +45,8 @@ public class Conserto {
         nome.ifPresent(s -> this.mecanico.setNome(s));
         experiencia.ifPresent(s -> this.mecanico.setExperiencia(s));
     }
+
+    public void excluir() {
+        this.ativo = false;
+    }
 }
