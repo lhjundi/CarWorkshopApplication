@@ -29,12 +29,7 @@ public class ConsertoController {
         //System.out.println(dados);
         repository.save(new Conserto(dados));
     }
-/*
-    @GetMapping
-    public List<Conserto> listar(){
-        return repository.findAll();
-    }
-*/
+
     @GetMapping
     public Page<Conserto> listar(Pageable paginacao){
         return repository.findAll(paginacao);
@@ -42,7 +37,7 @@ public class ConsertoController {
 
     @GetMapping("relatorios")
     public List<ListagemConsertoDTO> relatorioConsertos(){
-        return repository.findAll()
+        return repository.findAllByAtivoTrue()
                 .stream()
                 .map(ListagemConsertoDTO::new)
                 .toList();
