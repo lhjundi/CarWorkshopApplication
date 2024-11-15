@@ -1,4 +1,4 @@
-package com.lhjundi.car_workshop.veiculo;
+package com.lhjundi.car_workshop.model.veiculo;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

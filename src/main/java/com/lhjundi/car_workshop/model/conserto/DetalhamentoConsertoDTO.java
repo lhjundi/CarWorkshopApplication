@@ -1,9 +1,7 @@
-package com.lhjundi.car_workshop.conserto;
+package com.lhjundi.car_workshop.model.conserto;
 
-import com.lhjundi.car_workshop.mecanico.Mecanico;
-import com.lhjundi.car_workshop.mecanico.MecanicoDTO;
-import com.lhjundi.car_workshop.veiculo.Veiculo;
-import com.lhjundi.car_workshop.veiculo.VeiculoDTO;
+import com.lhjundi.car_workshop.model.mecanico.Mecanico;
+import com.lhjundi.car_workshop.model.veiculo.Veiculo;
 
 public record DetalhamentoConsertoDTO(
         Long id,

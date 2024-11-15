@@ -1,4 +1,4 @@
-package com.lhjundi.car_workshop.mecanico;
+package com.lhjundi.car_workshop.model.mecanico;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
