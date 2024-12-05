@@ -1,6 +1,7 @@
 package com.lhjundi.car_workshop.controller;
 
-import com.lhjundi.car_workshop.conserto.*;
+
+import com.lhjundi.car_workshop.model.conserto.*;
 import com.lhjundi.car_workshop.repository.ConsertoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -24,7 +25,7 @@ public class ConsertoController {
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid
-                                    ConsertoDTO dados,
+                                        ConsertoDTO dados,
                                     UriComponentsBuilder uriComponentsBuilder) {
         var conserto = new Conserto(dados);
         repository.save(conserto);

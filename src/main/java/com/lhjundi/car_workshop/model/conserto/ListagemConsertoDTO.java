@@ -1,4 +1,4 @@
-package com.lhjundi.car_workshop.conserto;
+package com.lhjundi.car_workshop.model.conserto;
 
 public record ListagemConsertoDTO(
         Long id,

@@ -1,6 +1,5 @@
-package com.lhjundi.car_workshop.conserto;
+package com.lhjundi.car_workshop.model.conserto;
 
-import com.lhjundi.car_workshop.mecanico.MecanicoDTO;
 import jakarta.validation.constraints.NotNull;
 
 public record AtualizacaoConsertoDTO(
